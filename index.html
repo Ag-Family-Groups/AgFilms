@@ -1,66 +1,379 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OXFORD bUSINESS COLLAGE</title>
-    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="page.css">
 </head>
 
-<body>
-    <header align="middle" style="top: 0%;" >
-    <h1>OXFORD BUSINEES COLLAGE </h1>   
+
+
+ <body> 
+ 
+ 
+ 
+ 
+ <!-- Using In Header -->
+ 
+ <header class="glass-header" id="glassHeader">
+
+<a href="https://example.com" class="logo-link">
+    <div class="logo-circle">
+        <img src="logo.png" alt="AgFilms Logo" class="header-logo">
+    </div>
+</a>
+
+    <a href="https://example.com" class="header-title">
+        <span>Free Movies &amp; Series</span>
+        <span class="verified">✓</span>
+        <sup>TM</sup>
+    </a>
+
 </header>
-    <div id="menu" align="middle" >
+
+<main class="page-content">
+    <h1>Welcome</h1>
+    <p>Scroll down and up to see the Liquid Glass effect.</p>
+</main>
+
+ 
+ <!-- Using In Header -->
+ 
+ 
+ <a href="https://filmyfly.ong/">Click Here</a>
+ 
+ <br>
+ <br>
+ 
+ <a href="https://hdmoviesin.xyz/" target="_blank" >Click Here</a>
+ 
+ 
+ 
+    <!-- Website Internal Link Viewer -->
+
+<style>
+    #glassBackButton {
+        display: none;
+        position: fixed;
+        top: 560px;
+        left: 295px;
+        z-index: 10001;
+        
+        width: 46px;
+        height: 46px;
+        border-radius: 16px;
+        
+        color: white;
+        font-size: 25px;
+        cursor: pointer;
+        
+        background: rgba(0, 0, 0, 0.38);
+        backdrop-filter: blur(1px) saturate(180%);
+        -webkit-backdrop-filter: blur(18px) saturate(180%);
+        
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        box-shadow:
+            inset 0 1px 1px rgba(255, 255, 255, 0.2),
+            0 5px 18px rgba(0, 0, 0, 0.2);
+        
+        align-items: center;
+        justify-content: center;
+    }
+    
+    #glassBackButton:active {
+        transform: scale(0.92);
+    }
+
+    #iframeFallback {
+        display: none;
+        position: fixed;
+        top: 70px;
+        right: 16px;
+        z-index: 10003;
+        padding: 10px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.72);
+        color: white;
+        font: 14px Arial, sans-serif;
+        text-decoration: none;
+    }
+</style>
+
+<button id="glassBackButton" type="button" aria-label="Back">
+    &#8592;
+</button>
+<a id="iframeFallback" target="_blank" rel="noopener noreferrer">No-Open👆Click-Here</a>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const iframe = document.getElementById("websiteFrame");
+        const backButton = document.getElementById("glassBackButton");
+        const fallback = document.getElementById("iframeFallback");
+        
+        if (!iframe || !backButton) return;
+        
+        function updateBackButton() {
+            const isOpen = iframe.style.display !== "none";
+            backButton.style.display = isOpen ? "flex" : "none";
+        }
+        
+        backButton.addEventListener("click", function() {
+            if (fallback) fallback.style.display = "none";
+
+            iframe.style.display = "none";
+            iframe.src = "about:blank";
+            
+            document.querySelectorAll("body > *:not(#websiteFrame):not(#glassBackButton):not(#iframeFallback)")
+                .forEach(element => {
+                    element.style.display = "";
+                });
+            
+            backButton.style.display = "none";
+        });
+        
+        const observer = new MutationObserver(updateBackButton);
+        
+        observer.observe(iframe, {
+            attributes: true,
+            attributeFilter: ["style"]
+        });
+        
+        updateBackButton();
+    });
+</script>
+
+<!-- Website Internal Link Handler -->
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const navbar = document.querySelector(".liquid-navbar");
+    let fallbackTimer;
+    let activeUrl = "";
+
+  document.addEventListener("click", function (event) {
+
+    const link = event.target.closest("a");
+
+    if (!link) return;
+        if (link.id === "iframeFallback") return;
+
+    const url = new URL(link.href, window.location.href);
+
+    // External links ko website ke andar open karo
+    if (
+      url.origin !== window.location.origin &&
+      url.protocol.startsWith("http")
+    ) {
+      event.preventDefault();
+
+      const iframe = document.getElementById("websiteFrame");
+
+      if (iframe) {
+        iframe.src = url.href;
+        iframe.style.display = "block";
+
+                const fallback = document.getElementById("iframeFallback");
+                if (fallback) {
+                    window.clearTimeout(fallbackTimer);
+                    activeUrl = url.href;
+                    fallback.href = activeUrl;
+                    fallback.style.display = "none";
+                    fallbackTimer = window.setTimeout(function() {
+                        if (activeUrl === url.href && iframe.style.display !== "none") {
+                            fallback.style.display = "inline-flex";
+                        }
+                    }, 4000);
+                }
+
+                document.querySelectorAll("body > *:not(#websiteFrame):not(.liquid-navbar):not(#iframeFallback)")
+          .forEach(element => element.style.display = "none");
+
+        if (navbar) navbar.style.display = "flex";
+      } else {
+        window.location.href = url.href;
+      }
+    }
+
+  });
+
+});
+</script>
+
+<iframe
+  id="websiteFrame"
+  style="
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    border:none;
+    z-index:999;
+    background:white;
+  "
+  allowfullscreen>
+</iframe>
+
+
+<!--
+  <iframe
+    id="webFrame" allow="fullscreen" allowfullscreen>
+  </iframe>
+</div> 
+-->
+
+        <p style="height:1500px;">
+            Scroll Testing Nav
+        </p>
+<!-- Website Internal Link Viewer --> 
+ 
+ 
+<br>
+    
+    
+    
+        <div id="menu" align="middle">
         <table border="1">
             <tr>
                 <th>
-    <h1 align="middle" style="color: white;">Registration Form</h1>
-    <hr>
-    
-                <form action="testfile.html" >
-                    <h2 align="left">1. Name</h2>
-                    <input type="text" placeholder="Enter Your Name">
-                   <h2 align="left">2. Father' Name</h2>
-                    <input type="text" placeholder="Enter Your Father Name">
-                    <h2 align="left">3. Mother' Name</h2>
-                    <input type="text" placeholder="Enter Your Mother Name">
-                    <h2 align="left">4. Address</h2>
-                    <textarea name="Address" placeholder="Enter Your Address"></textarea>
-                    <h2 align="left">5. Gender</h2>
-                    <input type="radio" name="gender">Male
-                    <input type="radio" name="gender">Female
-                    <h2 align="left">6. Mobile Number</h2>
-                    <input type="number" placeholder="Enter Your Mobile Number">
-                    <h2 align="left">7. E-MAil ID</h2>
-                    <input type="email" placeholder="Enter Your E-MAil">
-                    <h2 align="left">8. D.O.B</h2>
-                    <input type="date">
-                    <h2 align="left">9. Student Photo</h2>
-                    <input type="file">
-                    <h2 align="left">10. Signature</h2>
-                    <input type="file">
-                    <h2 align="left">11. Choose Coure</h2>
-                    <input type="radio" name="gender">B.C.A
-                    <input type="radio" name="gender">B.B.A
-                    <input type="radio" name="gender">M.C.A
-                    <input type="radio" name="gender">M.B.A
-                    <input type="radio" name="gender">Other
-                    <br>
-                    <br>
-                 <input type="submit" value="Register Now">
-                </form>
+                    <h1 align="middle" style="color: white;">Registration Form</h1>
+                    <hr>
+                    
+                    <form action="testfile.html">
+                        <h2 align="left">1. Name</h2>
+                        <input type="text" placeholder="Enter Your Name">
+                        <h2 align="left">2. Father' Name</h2>
+                        <input type="text" placeholder="Enter Your Father Name">
+                        <h2 align="left">3. Mother' Name</h2>
+                        <input type="text" placeholder="Enter Your Mother Name">
+                        <h2 align="left">4. Address</h2>
+                        <textarea name="Address" placeholder="Enter Your Address"></textarea>
+                        <h2 align="left">5. Gender</h2>
+                        <input type="radio" name="gender">Male
+                        <input type="radio" name="gender">Female
+                        <h2 align="left">6. Mobile Number</h2>
+                        <input type="number" placeholder="Enter Your Mobile Number">
+                        <h2 align="left">7. E-MAil ID</h2>
+                        <input type="email" placeholder="Enter Your E-MAil">
+                        <h2 align="left">8. D.O.B</h2>
+                        <input type="date">
+                        <h2 align="left">9. Student Photo</h2>
+                        <input type="file">
+                        <h2 align="left">10. Signature</h2>
+                        <input type="file">
+                        <h2 align="left">11. Choose Coure</h2>
+                        <input type="radio" name="gender">B.C.A
+                        <input type="radio" name="gender">B.B.A
+                        <input type="radio" name="gender">M.C.A
+                        <input type="radio" name="gender">M.B.A
+                        <input type="radio" name="gender">Other
+                        <br>
+                        <br>
+                        <input type="submit" value="Register Now">
+                    </form>
                 </th>
             </tr>
         </table>
     </div>
-    </form>
+    <br>
+    <br>
     
-        <p style="height:1500px;">
-      Scroll Testing Nav
-    </p>
+    <br>
 
+<style>
+    /* Navigation above iframe */
+    .liquid-navbar.iframe-glass-navbar {
+        display: flex !important;
+        position: fixed !important;
+        top: auto !important;
+        bottom: 22px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        
+        z-index: 10002 !important;
+        
+        background: rgba(0, 0, 0, 0.38) !important;
+        backdrop-filter: blur(1px) saturate(180%) !important;
+        -webkit-backdrop-filter: blur(25px) saturate(180%) !important;
+        
+        border: 1px solid rgba(255, 255, 255, 0.22) !important;
+        box-shadow:
+            inset 0 1px 2px rgba(255, 255, 255, 0.18),
+            0 8px 25px rgba(0, 0, 0, 0.25);
+    }
     
-</body>
+    /* Keep navigation buttons visible */
+    .liquid-navbar.iframe-glass-navbar .nav-link {
+        color: white !important;
+    }
+</style>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const iframe = document.getElementById("websiteFrame");
+        const navbar = document.querySelector(".liquid-navbar");
+        
+        if (!iframe || !navbar) return;
+        
+        function updateNavbar() {
+            const iframeOpen = iframe.style.display !== "none";
+            
+            navbar.classList.toggle(
+                "iframe-glass-navbar",
+                iframeOpen
+            );
+            
+            if (iframeOpen) {
+                navbar.style.display = "flex";
+            }
+        }
+        
+        new MutationObserver(updateNavbar).observe(iframe, {
+            attributes: true,
+            attributeFilter: ["style"]
+        });
+        
+        updateNavbar();
+    });
+</script>
+
+ </body> 
+ 
+   <!-- Background -->
+  <div class="background">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    <h1>REAL LIQUID GLASS</h1>
+    <p>Optical Refraction Experience</p>
+  </div>
+
+  <!-- SVG Liquid Glass Filter -->
+  <svg class="svg-filters">
+    <filter id="liquid-glass">
+      <feTurbulence
+        id="turbulence"
+        type="fractalNoise"
+        baseFrequency="0.018 0.025"
+        numOctaves="2"
+        seed="8"
+        result="noise"/>
+
+      <feDisplacementMap
+        in="SourceGraphic"
+        in2="noise"
+        scale="18"
+        xChannelSelector="R"
+        yChannelSelector="G"/>
+    </filter>
+  </svg>
+ 
+ 
+  
   <!-- Background Canvas for backdrop contrast & depth -->
   <div class="ambient-glow"></div>
   
@@ -78,43 +391,42 @@
       <!-- Navigation Items -->
       <ul class="nav-list">
           <li class="nav-item" data-index="0">
-              <a href="#today" class="nav-link">
-                  <i data-lucide="newspaper" class="nav-icon"></i>
-                  <span class="nav-label">Today</span>
+              <a href="https://filmyfly.ong/" class="nav-link">
+                  <i class="nav-icon">⌂</i>
+                  <span class="nav-label">Home</span>
               </a>
           </li>
           
           <li class="nav-item" data-index="1">
-              <a href="#games" class="nav-link">
-                  <i data-lucide="rocket" class="nav-icon"></i>
-                  <span class="nav-label">Games</span>
+              <a href="https://shoplinks.to/AgFilms1" class="nav-link">
+                  <b class="nav-icon">⌕</b>
+                  <span class="nav-label">Search</span>
               </a>
           </li>
           
           <li class="nav-item active" data-index="2">
-              <a href="#apps" class="nav-link">
-                  <i data-lucide="layers" class="nav-icon"></i>
-                  <span class="nav-label">Apps</span>
+              <a href="https://new1.bollyflix.tours/" class="nav-link">
+                  <b class="nav-icon">＋</b>
+                  <span class="nav-label">Add</span>
               </a>
           </li>
           
           <li class="nav-item" data-index="3">
-              <a href="#arcade" class="nav-link">
-                  <i data-lucide="joystick" class="nav-icon"></i>
-                  <span class="nav-label">Arcade</span>
+              <a href="https://net77.cc/home" class="nav-link">
+                  <b class="nav-icon">♡</b>
+                  <span class="nav-label">Like</span>
               </a>
           </li>
           
           <li class="nav-item" data-index="4">
-              <a href="#search" class="nav-link">
-                  <i data-lucide="search" class="nav-icon"></i>
-                  <span class="nav-label">Search</span>
+              <a href="https://www.instagram.com/itz_alekh_10k?dmpr=a2Z3YjRmYmZqNjV6" class="nav-link">
+                  <b class="nav-icon">♙</b>
+                  <span class="nav-label">You</span>
               </a>
           </li>
       </ul>
   </nav>
   
-  <script src="layout.js"></script>
-
-
-</html>
+  <script src="page.js"></script>
+  
+  </html>
