@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service</title>
+</head>
+<body>
+
+    <h1>Service Page</h1>
+    <p>Yahan apna content likho.</p>
+
+    <!-- Sirf ye ek line: header + navigation bar aa jayega -->
+    <script>
+        
+         /*
+  layout.js  (AgFilms)
+  Kisi bhi HTML me sirf ye ek line daalo:
+  index.html ka Header + Navigation Bar (aur uska link-viewer, back button,
+  liquid glass filter) apne aap load ho jayega. index.html me koi change nahi.
+*/
+  (function() {
+      "use strict";
+      
+      var SRC = document.currentScript && document.currentScript.src;
+      var BASE = SRC ? new URL(".", SRC).href : location.href;
+      var HOME = new URL("index.html", BASE).href;
+      
+      function fileName(path) {
+          var f = path.split("?")[0].split("#")[0].split("/").pop().toLowerCase();
+          return f || "index.html";
+      }
+      
+      function addCSS() {
+          if (document.querySelector('link[href$="page.css"]')) return;
+          var l = document.createElement("link");
+          l.rel = "stylesheet";
+          l.href = new URL("page.css", BASE).href;
+          document.head.appendChild(l);
+      }
+      
+      function runInline(code) {
+          var s = document.createElement("script");
+          s.textContent = code;
+          document.body.appendChild(s);
+      }
+      
+      function loadScript(src) {
+          return new Promise(function(resolve) {
+              var s = document.createElement("script");
+              s.src = src;
+              s.onload = s.onerror = resolve;
+              document.body.appendChild(s);
+          });
+      }
+      
+      function setActiveFromUrl(nav) {
+          var current = fileName(location.pathname);
+          var items = nav.querySelectorAll(".nav-item");
+          var matched = null;
+          
+          items.forEach(function(item) {
+              var link = item.querySelector(".nav-link");
+              var m = link && (link.getAttribute("onclick") || "").match(/location\.href\s*=\s*['"]([^'"]+)['"]/);
+              if (m && fileName(m[1]) === current) matched = item;
+          });
+          
+          if (matched) {
+              items.forEach(function(i) { i.classList.remove("active"); });
+              matched.classList.add("active");
+          }
+      }
+      
+      async function init() {
+          // Already loaded (e.g. index.html itself) -> kuch mat karo
+          if (document.getElementById("glassHeader") || document.getElementById("navbar")) return;
+          
+          addCSS();
+          
+          var html;
+          try {
+              var res = await fetch(HOME);
+              if (!res.ok) throw new Error(res.status);
+              html = await res.text();
+          } catch (err) {
+              console.error("layout.js: index.html load nahi hua. Local server / hosting par chalao (file:// par fetch block hota hai).", err);
+              return;
+          }
+          
+          var doc = new DOMParser().parseFromString(html, "text/html");
+          var body = document.body;
+          
+          function copy(sel, where) {
+              var el = doc.querySelector(sel);
+              if (!el) return null;
+              var node = document.importNode(el, true);
+              node.querySelectorAll("img").forEach(function(img) {
+                  img.src = new URL(img.getAttribute("src"), BASE).href;
+              });
+              if (where === "start") body.insertBefore(node, body.firstChild);
+              else body.appendChild(node);
+              return node;
+          }
+          
+          // index.html ke inline <style> (back button, iframe navbar styles)
+          doc.querySelectorAll("style").forEach(function(st) {
+              document.head.appendChild(document.importNode(st, true));
+          });
+          
+          copy("#glassHeader", "start");
+          copy("svg.svg-filters");
+          copy(".ambient-glow");
+          var nav = copy("#navbar");
+          copy("#glassBackButton");
+          copy("#iframeFallback");
+          copy("#websiteFrame");
+          
+          if (nav) setActiveFromUrl(nav);
+          
+          // index.html ke inline scripts (link viewer + back button) - same order me
+          doc.querySelectorAll("body script:not([src])").forEach(function(s) {
+              runInline(s.textContent);
+          });
+          
+          // page.js load karo, phir uske DOMContentLoaded handlers chalao
+          await loadScript(new URL("page.js", BASE).href);
+          document.dispatchEvent(new Event("DOMContentLoaded"));
+      }
+      
+      if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", init, { once: true });
+      } else {
+          init();
+      }
+  })(); 
+        
+    </script>
+
+</body>
+</html>
