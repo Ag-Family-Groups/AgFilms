@@ -297,7 +297,7 @@ cursor:pointer;
 </body>
 <script>
 const b=document.getElementById('btn'),l=document.getElementById('label');
-const words=['Filmfly','My Website'];let n=0;
+const words=['Filmfly'];let n=0;
 function pos(e){const r=b.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top,w:r.width}}
 b.addEventListener('pointermove',e=>{const p=pos(e);b.style.setProperty('--x',p.x+'px');b.style.setProperty('--y',p.y+'px')});
 b.addEventListener('pointerdown',e=>{
