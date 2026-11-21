@@ -5,6 +5,94 @@
     <title>Service</title>
     
     <style>
+html {
+    scroll-behavior: smooth;
+}
+
+.service-page .liquid-navbar {
+    transition:
+        left 0.75s cubic-bezier(.22, 1, .36, 1),
+        width 0.75s cubic-bezier(.22, 1, .36, 1),
+        padding 0.75s cubic-bezier(.22, 1, .36, 1),
+        border-radius 0.6s ease,
+        transform 0.75s cubic-bezier(.22, 1, .36, 1);
+}
+
+.service-page .liquid-navbar .nav-item {
+    transition:
+        left 0.65s cubic-bezier(.22, 1, .36, 1),
+        opacity 0.4s ease,
+        transform 0.65s cubic-bezier(.22, 1, .36, 1);
+}
+
+.service-page .liquid-navbar .water-drop-bubble {
+    transition:
+        left 0.75s cubic-bezier(.22, 1, .36, 1),
+        transform 0.65s cubic-bezier(.22, 1, .36, 1),
+        width 0.3s ease;
+}
+
+#serviceOpenIsland {
+    position: fixed;
+    top: max(12px, env(safe-area-inset-top));
+    left: 50%;
+    z-index: 10010;
+    display: none;
+    grid-auto-flow: column;
+    align-items: center;
+    gap: 10px;
+    max-width: calc(100vw - 32px);
+    padding: 12px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+    background: rgba(15, 18, 30, 0.88);
+    color: #fff;
+    font: 600 15px/1.2 Arial, sans-serif;
+    white-space: nowrap;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35), inset 0 1px rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -16px) scale(0.94);
+    transition: opacity 0.24s ease, transform 0.34s cubic-bezier(.22, 1, .36, 1);
+}
+
+#serviceOpenIsland.is-visible {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+}
+
+.service-open-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #54e39a;
+    box-shadow: 0 0 12px rgba(84, 227, 154, 0.8);
+}
+
+.service-page .glass.slide-to-center {
+    transform: translateX(var(--service-center-offset, 0px));
+    transition:
+        transform 0.75s cubic-bezier(.22, 1, .36, 1),
+        box-shadow 0.3s ease,
+        border-radius 0.45s ease;
+}
+
+.service-page .glass.slide-to-center:hover {
+    transform: translateX(var(--service-center-offset, 0px)) scale(1.04);
+}
+
+.service-page .glass.slide-to-center:active,
+.service-page .glass.slide-to-center.down {
+    transform: translateX(var(--service-center-offset, 0px)) scale(.93, .9);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .service-page .glass.slide-to-center {
+        transition: none;
+    }
+}
 
 .bg {
     position: fixed;
@@ -45,6 +133,8 @@ cursor:pointer;
  transition:transform .45s cubic-bezier(.34,1.8,.5,1),box-shadow .3s,border-radius .45s;
  animation:breathe 4s ease-in-out infinite}
 @keyframes breathe{50%{border-radius:46% 54% 52% 48%/58% 50% 50% 42%}}
+
+
 .glass:hover{transform:scale(1.04)}
 .glass:active,.glass.down{transform:scale(.93,.9);
  box-shadow:inset 0 1px 1px rgba(255,255,255,.5),inset 0 0 30px rgba(255,255,255,.22),0 8px 20px rgba(0,10,40,.3)}
@@ -66,7 +156,7 @@ cursor:pointer;
 </style>    
     
 </head>
-<body>
+<body class="service-page">
 
     <h1 align="middle">Click Service Start</h1>
     
@@ -200,10 +290,14 @@ cursor:pointer;
 </a>
 
 <br>
+<div id="serviceOpenIsland" role="status" aria-live="polite">
+  <span class="service-open-indicator" aria-hidden="true"></span>
+  <span id="serviceOpenMessage"></span>
+</div>
 </body>
 <script>
 const b=document.getElementById('btn'),l=document.getElementById('label');
-const words=['Filmfly'];let n=0;
+const words=['Filmfly','My Website'];let n=0;
 function pos(e){const r=b.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top,w:r.width}}
 b.addEventListener('pointermove',e=>{const p=pos(e);b.style.setProperty('--x',p.x+'px');b.style.setProperty('--y',p.y+'px')});
 b.addEventListener('pointerdown',e=>{
@@ -349,5 +443,98 @@ b.addEventListener('click',()=>{
   })(); 
         
     </script>
+
+<script>
+(function () {
+  const island = document.getElementById("serviceOpenIsland");
+  const message = document.getElementById("serviceOpenMessage");
+  if (!island || !message) return;
+
+  let hideTimer;
+  let cleanupTimer;
+
+  document.addEventListener("click", function (event) {
+    const link = event.target.closest("a");
+    const label = link && link.querySelector(".label");
+    const iframe = document.getElementById("websiteFrame");
+    if (!label || !iframe) return;
+
+    const url = new URL(link.href, window.location.href);
+    if (url.protocol !== "http:" && url.protocol !== "https:") return;
+
+    message.textContent = label.textContent.trim() + " Open";
+    window.clearTimeout(hideTimer);
+    window.clearTimeout(cleanupTimer);
+    island.classList.remove("is-visible");
+
+    window.requestAnimationFrame(function () {
+      if (iframe.style.display === "none") return;
+      island.style.display = "grid";
+      void island.offsetWidth;
+      island.classList.add("is-visible");
+
+      hideTimer = window.setTimeout(function () {
+        island.classList.remove("is-visible");
+        cleanupTimer = window.setTimeout(function () {
+          if (!island.classList.contains("is-visible")) {
+            island.style.display = "none";
+          }
+        }, 350);
+      }, 2600);
+    });
+  });
+})();
+</script>
+
+<script>
+(function () {
+  const buttons = Array.from(document.querySelectorAll(".service-page .glass"));
+  if (!buttons.length) return;
+
+  function centerButton(button) {
+    const alreadyCentered = button.classList.contains("slide-to-center");
+    const previousTransition = button.style.transition;
+
+    if (alreadyCentered) {
+      button.style.transition = "none";
+      button.style.removeProperty("--service-center-offset");
+    }
+
+    const rect = button.getBoundingClientRect();
+    const offset = window.innerWidth / 2 - rect.left - rect.width / 2;
+    button.style.setProperty("--service-center-offset", offset + "px");
+
+    if (!alreadyCentered) {
+      button.classList.add("slide-to-center");
+    } else {
+      void button.offsetWidth;
+      button.style.transition = previousTransition;
+    }
+  }
+
+  if (!("IntersectionObserver" in window)) {
+    buttons.forEach(centerButton);
+    return;
+  }
+
+  const observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      centerButton(entry.target);
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.2 });
+
+  buttons.forEach(function (button) {
+    observer.observe(button);
+  });
+
+  window.addEventListener("resize", function () {
+    buttons.forEach(function (button) {
+      if (button.classList.contains("slide-to-center")) centerButton(button);
+    });
+  });
+})();
+</script>
 
 </html>
