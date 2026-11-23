@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#11142a">
+    <title>Sign in | AgFilms</title>
+    <link rel="stylesheet" href="Login.css">
+</head>
+<body>
+    <main class="login-page">
+        <div class="orb orb-one" aria-hidden="true"></div>
+        <div class="orb orb-two" aria-hidden="true"></div>
+        <div class="orb orb-three" aria-hidden="true"></div>
+
+        <a class="home-link" href="index.html" aria-label="Return to AgFilms home">
+            <img src="logo.png" alt="">
+            <span>AgFilms</span>
+        </a>
+
+        <section class="glass-card" aria-labelledby="pageTitle">
+            <div class="card-shine" aria-hidden="true"></div>
+            <div class="card-content">
+                <div class="eyebrow"><span class="status-dot"></span> YOUR SPACE, SECURED</div>
+                <h1 id="pageTitle">Welcome back</h1>
+                <p class="intro" id="formIntro">Sign in to continue to your account.</p>
+
+                <div class="mode-switch" role="group" aria-label="Choose account action">
+                    <button class="mode-button is-active" id="loginMode" type="button" aria-pressed="true">Sign in</button>
+                    <button class="mode-button" id="signupMode" type="button" aria-pressed="false">Create account</button>
+                </div>
+
+                <form id="authForm">
+                    <label class="field" id="nameField" hidden>
+                        <span>Your name</span>
+                        <input id="displayName" name="displayName" type="text" autocomplete="name" maxlength="80" placeholder="Alex Morgan">
+                    </label>
+
+                    <label class="field">
+                        <span>Email address</span>
+                        <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+                    </label>
+
+                    <label class="field">
+                        <span>Password</span>
+                        <input id="password" name="password" type="password" autocomplete="current-password" minlength="1" placeholder="Password" required>
+                    </label>
+
+                    <button class="submit-button" id="submitButton" type="submit">
+                        <span id="submitLabel">Sign in</span>
+                        <span aria-hidden="true">→</span>
+                    </button>
+                </form>
+
+                <div class="auth-divider"><span>or continue with</span></div>
+                <button class="google-button" id="googleSignInButton" type="button">
+                    <span class="google-mark" aria-hidden="true">G</span>
+                    <span id="googleButtonLabel">Continue with Google</span>
+                </button>
+
+                <p class="message" id="authMessage" role="status" aria-live="polite"></p>
+                <p class="privacy-note">Passwords are handled by Firebase Authentication and are never saved in your profile data.</p>
+            </div>
+        </section>
+
+        <a class="back-link" href="index.html">← Back to home</a>
+        <p class="footer-note">A little more you, in a calmer place.</p>
+    </main>
+    <script type="module" src="Login.js"></script>
+    <script>
+        if (location.protocol === "file:") {
+            const message = document.getElementById("authMessage");
+            message.textContent = "Firebase sign-in needs a web server. Open this site through localhost or its hosted URL, not directly as a file.";
+            message.classList.add("is-error");
+            document.querySelectorAll(".mode-button, #submitButton, #googleSignInButton").forEach((button) => {
+                button.disabled = true;
+            });
+        }
+    </script>
+</body>
+</html>

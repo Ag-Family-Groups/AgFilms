@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service</title>
+    
+    <style>
+html {
+    scroll-behavior: smooth;
+}
+
+.service-page .liquid-navbar {
+    transition:
+        left 0.75s cubic-bezier(.22, 1, .36, 1),
+        width 0.75s cubic-bezier(.22, 1, .36, 1),
+        padding 0.75s cubic-bezier(.22, 1, .36, 1),
+        border-radius 0.6s ease,
+        transform 0.75s cubic-bezier(.22, 1, .36, 1);
+}
+
+.service-page .liquid-navbar .nav-item {
+    transition:
+        left 0.65s cubic-bezier(.22, 1, .36, 1),
+        opacity 0.4s ease,
+        transform 0.65s cubic-bezier(.22, 1, .36, 1);
+}
+
+.service-page .liquid-navbar .water-drop-bubble {
+    transition:
+        left 0.75s cubic-bezier(.22, 1, .36, 1),
+        transform 0.65s cubic-bezier(.22, 1, .36, 1),
+        width 0.3s ease;
+}
+
+#serviceOpenIsland {
+    position: fixed;
+    top: max(12px, env(safe-area-inset-top));
+    left: 50%;
+    z-index: 10010;
+    display: none;
+    grid-auto-flow: column;
+    align-items: center;
+    gap: 10px;
+    max-width: calc(100vw - 32px);
+    padding: 12px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+    background: rgba(15, 18, 30, 0.88);
+    color: #fff;
+    font: 600 15px/1.2 Arial, sans-serif;
+    white-space: nowrap;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35), inset 0 1px rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -16px) scale(0.94);
+    transition: opacity 0.24s ease, transform 0.34s cubic-bezier(.22, 1, .36, 1);
+}
+
+#serviceOpenIsland.is-visible {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+}
+
+.service-open-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #54e39a;
+    box-shadow: 0 0 12px rgba(84, 227, 154, 0.8);
+}
+
+.service-page .glass.slide-to-center {
+    transform: translateX(var(--service-center-offset, 0px));
+    transition:
+        transform 0.75s cubic-bezier(.22, 1, .36, 1),
+        box-shadow 0.3s ease,
+        border-radius 0.45s ease;
+}
+
+.service-page .glass.slide-to-center:hover {
+    transform: translateX(var(--service-center-offset, 0px)) scale(1.04);
+}
+
+.service-page .glass.slide-to-center:active,
+.service-page .glass.slide-to-center.down {
+    transform: translateX(var(--service-center-offset, 0px)) scale(.93, .9);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .service-page .glass.slide-to-center {
+        transition: none;
+    }
+}
+
+.bg {
+    position: fixed;
+     inset:0;
+     z-index:0;
+     overflow:hidden;
+     
+    
+}
+.bg i {
+    position:absolute;
+border-radius:50%;
+filter:blur(1px);
+opacity:.9;
+animation:float 14s ease-in-out infinite alternate
+    
+}
+.bg i:nth-child(1){width:48vmax;height:48vmax;left:-12vmax;top:-10vmax;background:transparent}
+
+@keyframes float{to{transform:translate(8vmax,6vmax) scale(1.15)}}
+
+.glass {
+    position:relative;
+    left: 12%;
+z-index:1;
+width:min(78vw,260px);
+height:45px;
+border:0;
+border-radius:999px;
+cursor:pointer;
+
+ color:rgba(255,255,255,.95);font:600 20px/1 inherit;letter-spacing:.02em;
+ background:linear-gradient(135deg,rgba(255,255,255,.28),rgba(255,255,255,.06) 55%,rgba(255,255,255,.16));
+ backdrop-filter:blur(1px) saturate(1.8);-webkit-backdrop-filter:blur(14px) saturate(1.8);
+ box-shadow:inset 0 1.5px 1px rgba(255,255,255,.7),inset 0 -2px 6px rgba(255,255,255,.25),
+  inset 0 0 22px rgba(255,255,255,.12),0 18px 40px rgba(0,10,40,.35);
+ overflow:hidden;isolation:isolate;
+ transition:transform .45s cubic-bezier(.34,1.8,.5,1),box-shadow .3s,border-radius .45s;
+ animation:breathe 4s ease-in-out infinite}
+@keyframes breathe{50%{border-radius:46% 54% 52% 48%/58% 50% 50% 42%}}
+.glass:hover{transform:scale(1.04)}
+.glass:active,.glass.down{transform:scale(.93,.9);
+ box-shadow:inset 0 1px 1px rgba(255,255,255,.5),inset 0 0 30px rgba(255,255,255,.22),0 8px 20px rgba(0,10,40,.3)}
+.glass:focus-visible{outline:2px solid #fff;outline-offset:5px}
+
+/* moving sheen */
+.glass::before{content:"";position:absolute;inset:0;z-index:-1;
+ background:radial-gradient(120px 70px at var(--x,30%) var(--y,20%),rgba(255,255,255,.55),transparent 70%);
+ transition:opacity .3s;opacity:.8}
+/* liquid ripple */
+.rip{position:absolute;z-index:-1;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%) scale(0);
+ background:radial-gradient(circle,rgba(255,255,255,.7),rgba(255,255,255,.15) 55%,transparent 70%);
+ animation:rip .9s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes rip{to{transform:translate(-50%,-50%) scale(1);opacity:0}}
+.label{position:relative;display:inline-block;transition:transform .3s}
+.glass.pop .label{animation:pop .5s cubic-bezier(.34,1.8,.5,1)}
+@keyframes pop{40%{transform:scale(1.18)}}
+@media (prefers-reduced-motion:reduce){.glass,.bg i{animation:none}}
+</style>    
+    
+</head>
+<body class="service-page">
+
+    <h1 align="middle">Click Service Start</h1>
+    
+
+    
+    <br />
+
+<div class="bg"><i></i></div>
+<a href="https://filmyfly.ong/"
+   onclick="document.getElementById('websiteFrame').src=this.href; return false;">
+
+  <button class="glass" id="btn" type="button">
+    <span class="label" id="label">Filmfly</span>
+  </button>
+
+</a>
+<br>
+
+<br>
+<a href="https://shoplinks.to/AgFilms1"
+   onclick="document.getElementById('websiteFrame').src=this.href; return false;">
+
+  <button class="glass" id="btn" type="button">
+    <span class="label" id="label">My Website</span>
+  </button>
+
+</a>
+<br>
+
+<br>
+<a href="''"
+   onclick="document.getElementById('websiteFrame').src=this.href; return false;">
+
+  <button class="glass" id="btn" type="button">
+    <span class="label" id="label">Coming Soon..</span>
+  </button>
+
+</a>
+<br>
+
+<br>
+<a href="''"
+   onclick="document.getElementById('websiteFrame').src=this.href; return false;">
+
+  <button class="glass" id="btn" type="button">
+    <span class="label" id="label">Coming Soon..</span>
+  </button>
+
+</a>
+
+<br>
+
+<br>
+<a href="''"
+   onclick="document.getElementById('websiteFrame').src=this.href; return false;">
+
+  <button class="glass" id="btn" type="button">
+    <span class="label" id="label">Coming Soon..</span>
+  </button>
+
+</a>
+
+<br>
+
+<br>
+<a href="''"
+   onclick="document.getElementById('websiteFrame').src=this.href; return false;">
+
+  <button class="glass" id="btn" type="button">
+    <span class="label" id="label">Coming Soon..</span>
+  </button>
+
+</a>
+
+<br>
+
+<br>
+<a href="''"
+   onclick="document.getElementById('websiteFrame').src=this.href; return false;">
+
+  <button class="glass" id="btn" type="button">
+    <span class="label" id="label">Coming Soon..</span>
+  </button>
+
+</a>
+
+<br>
+
+<br>
+<a href="''"
+   onclick="document.getElementById('websiteFrame').src=this.href; return false;">
+
+  <button class="glass" id="btn" type="button">
+    <span class="label" id="label">Coming Soon..</span>
+  </button>
+
+</a>
+
+<br>
+
+<br>
+<a href="''"
+   onclick="document.getElementById('websiteFrame').src=this.href; return false;">
+
+  <button class="glass" id="btn" type="button">
+    <span class="label" id="label">Coming Soon..</span>
+  </button>
+
+</a>
+<br>
+
+<br>
+<a href="''"
+   onclick="document.getElementById('websiteFrame').src=this.href; return false;">
+
+  <button class="glass" id="btn" type="button">
+    <span class="label" id="label">Coming Soon..</span>
+  </button>
+
+</a>
+<br>
+
+<br>
+<a href="''"
+   onclick="document.getElementById('websiteFrame').src=this.href; return false;">
+
+  <button class="glass" id="btn" type="button">
+    <span class="label" id="label">Coming Soon..</span>
+  </button>
+
+</a>
+
+<br>
+<div id="serviceOpenIsland" role="status" aria-live="polite">
+  <span class="service-open-indicator" aria-hidden="true"></span>
+  <span id="serviceOpenMessage"></span>
+</div>
+</body>
+<script>
+const b=document.getElementById('btn'),l=document.getElementById('label');
+const words=['Filmfly'];let n=0;
+function pos(e){const r=b.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top,w:r.width}}
+b.addEventListener('pointermove',e=>{const p=pos(e);b.style.setProperty('--x',p.x+'px');b.style.setProperty('--y',p.y+'px')});
+b.addEventListener('pointerdown',e=>{
+ b.classList.add('down');const p=pos(e);
+ const s=document.createElement('span');s.className='rip';
+ const d=p.w*2.2;s.style.cssText='width:'+d+'px;height:'+d+'px;left:'+p.x+'px;top:'+p.y+'px';
+ b.appendChild(s);setTimeout(()=>s.remove(),950);
+ b.style.setProperty('--x',p.x+'px');b.style.setProperty('--y',p.y+'px');
+});
+['pointerup','pointerleave','pointercancel'].forEach(t=>b.addEventListener(t,()=>b.classList.remove('down')));
+b.addEventListener('click',()=>{
+ n=(n+1)%words.length;l.textContent=words[n];
+ b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop');
+ if(navigator.vibrate)try{navigator.vibrate(12)}catch(e){}
+});
+</script>
+    
+    
+    
+
+    <!-- Sirf ye ek line: header + navigation bar aa jayega -->
+    <script>
+        
+         /*
+  layout.js  (AgFilms)
+  Kisi bhi HTML me sirf ye ek line daalo:
+  index.html ka Header + Navigation Bar (aur uska link-viewer, back button,
+  liquid glass filter) apne aap load ho jayega. index.html me koi change nahi.
+*/
+  (function() {
+      "use strict";
+      
+      var SRC = document.currentScript && document.currentScript.src;
+      var BASE = SRC ? new URL(".", SRC).href : location.href;
+      var HOME = new URL("index.html", BASE).href;
+      
+      function fileName(path) {
+          var f = path.split("?")[0].split("#")[0].split("/").pop().toLowerCase();
+          return f || "index.html";
+      }
+      
+      function addCSS() {
+          if (document.querySelector('link[href$="page.css"]')) return;
+          var l = document.createElement("link");
+          l.rel = "stylesheet";
+          l.href = new URL("page.css", BASE).href;
+          document.head.appendChild(l);
+      }
+      
+      function runInline(code) {
+          var s = document.createElement("script");
+          s.textContent = code;
+          document.body.appendChild(s);
+      }
+      
+      function loadScript(src) {
+          return new Promise(function(resolve) {
+              var s = document.createElement("script");
+              s.src = src;
+              s.onload = s.onerror = resolve;
+              document.body.appendChild(s);
+          });
+      }
+      
+      function setActiveFromUrl(nav) {
+          var current = fileName(location.pathname);
+          var items = nav.querySelectorAll(".nav-item");
+          var matched = null;
+          
+          items.forEach(function(item) {
+              var link = item.querySelector(".nav-link");
+              var m = link && (link.getAttribute("onclick") || "").match(/location\.href\s*=\s*['"]([^'"]+)['"]/);
+              if (m && fileName(m[1]) === current) matched = item;
+          });
+          
+          if (matched) {
+              items.forEach(function(i) { i.classList.remove("active"); });
+              matched.classList.add("active");
+          }
+      }
+      
+      async function init() {
+          // Already loaded (e.g. index.html itself) -> kuch mat karo
+          if (document.getElementById("glassHeader") || document.getElementById("navbar")) return;
+          
+          addCSS();
+          
+          var html;
+          try {
+              var res = await fetch(HOME);
+              if (!res.ok) throw new Error(res.status);
+              html = await res.text();
+          } catch (err) {
+              console.error("layout.js: index.html load nahi hua. Local server / hosting par chalao (file:// par fetch block hota hai).", err);
+              return;
+          }
+          
+          var doc = new DOMParser().parseFromString(html, "text/html");
+          var body = document.body;
+          
+          function copy(sel, where) {
+              var el = doc.querySelector(sel);
+              if (!el) return null;
+              var node = document.importNode(el, true);
+              node.querySelectorAll("img").forEach(function(img) {
+                  img.src = new URL(img.getAttribute("src"), BASE).href;
+              });
+              if (where === "start") body.insertBefore(node, body.firstChild);
+              else body.appendChild(node);
+              return node;
+          }
+          
+          // index.html ke inline <style> (back button, iframe navbar styles)
+          doc.querySelectorAll("style").forEach(function(st) {
+              document.head.appendChild(document.importNode(st, true));
+          });
+          
+          copy("#glassHeader", "start");
+          copy("svg.svg-filters");
+          copy(".ambient-glow");
+          var nav = copy("#navbar");
+          copy("#glassBackButton");
+          copy("#iframeFallback");
+          copy("#websiteFrame");
+          
+          if (nav) setActiveFromUrl(nav);
+          
+          // index.html ke inline scripts (link viewer + back button) - same order me
+          doc.querySelectorAll("body script:not([src])").forEach(function(s) {
+              runInline(s.textContent);
+          });
+          
+          // page.js load karo, phir uske DOMContentLoaded handlers chalao
+          await loadScript(new URL("page.js", BASE).href);
+          document.dispatchEvent(new Event("DOMContentLoaded"));
+      }
+      
+      if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", init, { once: true });
+      } else {
+          init();
+      }
+  })(); 
+        
+    </script>
+
+<script>
+(function () {
+  const island = document.getElementById("serviceOpenIsland");
+  const message = document.getElementById("serviceOpenMessage");
+  if (!island || !message) return;
+
+  let hideTimer;
+  let cleanupTimer;
+
+  document.addEventListener("click", function (event) {
+    const link = event.target.closest("a");
+    const label = link && link.querySelector(".label");
+    const iframe = document.getElementById("websiteFrame");
+    if (!label || !iframe) return;
+
+    const url = new URL(link.href, window.location.href);
+    if (url.protocol !== "http:" && url.protocol !== "https:") return;
+
+    message.textContent = label.textContent.trim() + " Open";
+    window.clearTimeout(hideTimer);
+    window.clearTimeout(cleanupTimer);
+    island.classList.remove("is-visible");
+
+    window.requestAnimationFrame(function () {
+      if (iframe.style.display === "none") return;
+      island.style.display = "grid";
+      void island.offsetWidth;
+      island.classList.add("is-visible");
+
+      hideTimer = window.setTimeout(function () {
+        island.classList.remove("is-visible");
+        cleanupTimer = window.setTimeout(function () {
+          if (!island.classList.contains("is-visible")) {
+            island.style.display = "none";
+          }
+        }, 350);
+      }, 2600);
+    });
+  });
+})();
+</script>
+
+<script>
+(function () {
+  const buttons = Array.from(document.querySelectorAll(".service-page .glass"));
+  if (!buttons.length) return;
+
+  function centerButton(button) {
+    const alreadyCentered = button.classList.contains("slide-to-center");
+    const previousTransition = button.style.transition;
+
+    if (alreadyCentered) {
+      button.style.transition = "none";
+      button.style.removeProperty("--service-center-offset");
+    }
+
+    const rect = button.getBoundingClientRect();
+    const offset = window.innerWidth / 2 - rect.left - rect.width / 2;
+    button.style.setProperty("--service-center-offset", offset + "px");
+
+    if (!alreadyCentered) {
+      button.classList.add("slide-to-center");
+    } else {
+      void button.offsetWidth;
+      button.style.transition = previousTransition;
+    }
+  }
+
+  if (!("IntersectionObserver" in window)) {
+    buttons.forEach(centerButton);
+    return;
+  }
+
+  const observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      centerButton(entry.target);
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.2 });
+
+  buttons.forEach(function (button) {
+    observer.observe(button);
+  });
+
+  window.addEventListener("resize", function () {
+    buttons.forEach(function (button) {
+      if (button.classList.contains("slide-to-center")) centerButton(button);
+    });
+  });
+})();
+</script>
+
+</html>

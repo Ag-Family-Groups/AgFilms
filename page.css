@@ -1,0 +1,1075 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+            background: linear-gradient(
+                120deg,
+                red,
+                blue,
+                purple,
+                orange
+            );
+            margin: 0;
+            font-family: arial;
+            padding: 100px 20px 20px ;
+            
+        }
+
+/* Using In Header */
+/* Using In Header */
+body {
+  min-height: 200vh;
+  font-family: Arial, sans-serif;
+}
+
+/* MAIN GLASS HEADER */
+
+
+.glass-header {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  width: calc(100% - 7%);
+  max-width: 1450px;
+  height: 115px;
+  
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  
+  padding: 12px 30px;
+  
+  border-radius: 100px;
+  isolation: isolate;
+  
+  background: rgba(255, 255, 255, 0.30);
+  
+  backdrop-filter: blur(1px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  
+  border: 2px solid rgba(255, 255, 255, 0.65);
+  
+  box-shadow:
+    inset 0 2px 3px rgba(255, 255, 255, 0.5),
+    inset 0 -2px 5px rgba(255, 255, 255, 0.15),
+    0 8px 30px rgba(0, 0, 0, 0.08);
+  
+  z-index: 9999;
+  
+  transition:
+    background 0.45s ease,
+    border-color 0.45s ease,
+    box-shadow 0.45s ease;
+}
+
+.glass-header::before,
+.liquid-navbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.1) 42%,
+    rgba(255, 255, 255, 0.68) 50%,
+    rgba(255, 255, 255, 0.12) 58%,
+    transparent 70%
+  );
+  background-size: 250% 100%;
+  background-position: 150% 0;
+  animation: glass-shine 4.5s ease-in-out infinite;
+  pointer-events: none;
+  will-change: background-position;
+  z-index: 2;
+}
+
+.glass-header > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* LOGO LINK */
+
+.logo-link {
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.logo-circle {
+  width: 50px;
+  height: min(50px);
+  
+  border-radius: 50%;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  background: rgba(255, 255, 255, 0.95);
+  
+  box-shadow:
+    inset 0 2px 5px rgba(255, 255, 255, 1),
+    0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+.logo-text {
+  font-size: 25px;
+  font-weight: 400;
+  color: #56345b;
+  letter-spacing: -2px;
+}
+
+.logo-text span {
+  color: #282633;
+}
+
+/* HEADER TITLE */
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  
+  text-decoration: none;
+  color: #292c32;
+  
+  font-size: clamp(20px, 4vw, 52px);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.verified {
+  font-size: 1.2em;
+  font-weight: 900;
+}
+
+.header-title sup {
+  font-size: 13px;
+  align-self: flex-start;
+  margin-top: 5px;
+}
+
+/* SCROLL DOWN - BLACK GLASS */
+
+.glass-header.black-glass {
+  background: rgba(0, 0, 0, 0.42);
+  
+  border-color: rgba(255, 255, 255, 0.25);
+  
+  box-shadow:
+    inset 0 1px 3px rgba(255, 255, 255, 0.20),
+    0 8px 30px rgba(0, 0, 0, 0.20);
+}
+
+.black-glass .header-title {
+  color: #ffffff;
+}
+
+/* SCROLL UP - WHITE GLASS */
+
+.glass-header.white-glass {
+  background: rgba(255, 255, 255, 0.30);
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
+.white-glass .header-title {
+  color: #292c32;
+}
+
+/* PAGE CONTENT */
+
+.page-content {
+  padding: 180px 25px 50px;
+  text-align: center;
+}
+
+/* MOBILE RESPONSIVE */
+
+@media (max-width: 600px) {
+  
+  .glass-header {
+    top: 15px;
+    width: calc(100% - 24px);
+    height: 60px;
+    padding: 8px 12px;
+    gap: 15px;
+  }
+  
+  .logo-circle {
+    width: min(55px);
+    height: min(40px);
+  }
+  
+  .logo-text {
+    font-size: 15px;
+    letter-spacing: -2px;
+  }
+  
+  .header-title {
+    font-size: clamp(15px, 7vw, 23px);
+    gap: 5px;
+  }
+  
+  .header-title sup {
+    font-size: 8px;
+  }
+  
+  .header-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  display: block;
+}
+
+}
+
+/* Using In Header */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+/*Navigation Bar CSS Code */
+
+.ambient-glow {
+  min-height: 0;
+  display: block;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+}
+
+/* Optional subtle background light to showcase glass transparency */
+.ambient-glow {
+  
+  position: absolute;
+  
+  height: 250px;
+  background: radial-gradient(ellipse at center, rgba(30, 80, 180, 0.18) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+/* Outer Frosted Glass Pill Bar */
+.liquid-navbar {
+width: min(326px, 90vw);
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  
+  /* Dark translucent glass */
+  background:radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.03) 65%,
+    rgba(255, 255, 255, 0.16) 100%
+  );
+  backdrop-filter: blur(''
+  ) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  
+  /* Subtly lit 3D glass edge */
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 
+    0 16px 38px rgba(0, 0, 0, 0.7),
+    inset 0 1px 1px rgba(255, 255, 255, 0.28),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.6);
+  z-index: 10;
+}
+
+/* Nav Item List */
+.nav-list {
+  display: flex;
+  list-style: none;
+  position: relative;
+  z-index: 3;
+}
+
+.nav-item {
+  position: relative;
+  z-index: 3;
+}
+
+.nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 57px;
+  height: 61px;
+  text-decoration: none;
+  gap: 5px;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.nav-link:active {
+  transform: scale(0.92);
+}
+
+/* Icons & Labels */
+.nav-icon {
+  width: 20px;
+  height: 32px;
+  stroke: #ffffff;
+  stroke-width: 2.2;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nav-label {
+  font-size: 11.1px;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+  color: #f1f1f1;
+  transition: color 0.3s ease;
+}
+
+/* Active State: Vivid Electric Blue like iOS App Store */
+.nav-item.active .nav-icon {
+  stroke: #2997ff;
+  transform: scale(1.12);
+  filter: drop-shadow(0 2px 8px rgba(41, 151, 255, 0.45));
+}
+
+.nav-item.active .nav-label {
+  color: #2997ff;
+  font-weight: 600;
+}
+
+/* ========================================================
+   TRANSPARENT ULTRA-CLEAR WATER DROP / LIQUID GLASS LENS
+   ======================================================== */
+.water-drop-bubble {
+  position: absolute;
+  top: 78%;
+  left: 0px;
+  width: (65px, 100vw);
+  height: (10px, 100vw);
+  /* Slightly taller than navbar to create liquid bulge */
+  margin-top: -54px;
+  border-radius: 46%;
+  pointer-events: none;
+  z-index: 2;
+  
+  /* Ultra-clear glass magnification & refraction */
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.03) 65%,
+    rgba(255, 255, 255, 0.16) 100%
+  );
+  
+  backdrop-filter: blur(1px) contrast(115%) brightness(112%);
+  -webkit-backdrop-filter: blur(1px) contrast(115%) brightness(112%);
+  
+  /* 3D Liquid droplet border highlight */
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 
+    0 10px 24px rgba(0, 0, 0, 0.45),
+    inset 0 0 14px rgba(255, 255, 255, 0.18),
+    inset 0 1px 3px rgba(255, 255, 255, 0.7);
+  
+  /* Fluid spring transition with jelly squish */
+  transition: transform 0.48s cubic-bezier(0.34, 1.35, 0.64, 1),
+              width 0.3s ease,
+              border-radius 0.3s ease;
+  will-change: transform;
+}
+
+/* Chromatic Aberration / Optical Dispersion Rainbow Fringes */
+.chromatic-rim {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  height: 5px;
+  border-radius: 50%;
+  filter: blur(1.2px);
+  opacity: 0.95;
+  pointer-events: none;
+}
+
+/* Top Rainbow Fringe (Cyan/Lime/Magenta) */
+.chromatic-rim.top-rim {
+  top: 1px;
+  background: linear-gradient(
+    90deg, 
+    transparent 0%,
+    rgba(255, 75, 130, 0.65) 20%, 
+    rgba(64, 224, 208, 0.85) 50%, 
+    rgba(255, 215, 0, 0.7) 80%,
+    transparent 100%
+  );
+}
+
+/* Bottom Rainbow Fringe (Caustic Reflection) */
+.chromatic-rim.bottom-rim {
+  bottom: 1px;
+  background: linear-gradient(
+    90deg, 
+    transparent 0%,
+    rgba(41, 151, 255, 0.75) 25%, 
+    rgba(255, 60, 160, 0.8) 55%, 
+    rgba(80, 250, 180, 0.7) 85%,
+    transparent 100%
+  );
+}
+
+/* Curved glossy glass specular reflection */
+.specular-glare {
+  position: absolute;
+  top: 4px;
+  left: 20%;
+  right: 20%;
+  height: 12px;
+  background: radial-gradient( transparent 100%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Jelly squish class dynamically applied during rapid transit */
+.water-drop-bubble.moving {
+  transform: scaleX(1.18) scaleY(0.88);
+}
+
+/* Navigation Bar CSS Code */
+
+
+
+
+/*press and hold */
+
+
+
+/* PRESS AND HOLD FIX */
+
+.liquid-navbar {
+   
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.water-drop-bubble {
+    top: 57px;
+    left: 10px;
+    height: ( 10px) 
+    
+  
+    
+}
+
+.liquid-navbar.is-pressed .water-drop-bubble {
+  top:48px;
+  left: 0px;
+   width: min(90px, 120vw);
+  height: min(70px, 120vw);
+  padding: 30px 40px;
+    border-radius: 250px !important;
+
+    background: radial-gradient(
+        ellipse at 30% 15%,
+        rgba(255,255,255,.95),
+        rgba(255,255,255,.45) 35%,
+        
+    ) !important;
+
+    
+}
+
+.liquid-glass.is-pressed .specular-glare {
+    opacity: 0.5;
+    height: 18px;
+}
+
+.liquid-glass.is-pressed .chromatic-rim {
+    opacity: 0.3;
+}
+
+.liquid-glass.is-dragging .water-drop-bubble {
+    transition: none !important;
+}
+
+
+
+
+/* Navigation Bar Scroll CSS Code */
+
+.liquid-navbar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  isolation: isolate;
+
+  width: 340px;
+  height: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  padding: 8px;
+
+  border-radius: 50px;
+
+  background: rgba(255,255,255,0.10);
+
+  backdrop-filter: blur('') saturate(190%);
+  -webkit-backdrop-filter: blur(30px) saturate(190%);
+
+  border: 1px solid rgba(255,255,255,0.4);
+
+  box-shadow:
+    inset 0 2px 5px rgba(255,255,255,0.4),
+    0 8px 30px rgba(0,0,0,0.25);
+
+  transform: translateX(-50%);
+
+  transition:
+    left 0.75s cubic-bezier(.22,1,.36,1),
+    width 0.75s cubic-bezier(.22,1,.36,1),
+    border-radius 0.6s ease,
+    transform 0.75s cubic-bezier(.22,1,.36,1);
+
+  z-index: 9999;
+}
+
+/* SCROLL DOWN - FIRST BUTTON ONLY */
+
+.liquid-navbar.collapsed {
+  left: 20px;
+  width: 78px;
+  padding: 15px 10px;
+
+  transform: translateX(0);
+
+  border-radius: 45%;
+  justify-content: flex-start;
+}
+
+/* Hide other buttons */
+
+.liquid-navbar.collapsed .nav-list {
+  justify-content: flex-start;
+}
+
+.liquid-navbar.collapsed .nav-item:not(.active) {
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-30px) scale(0.5);
+}
+
+.liquid-navbar.collapsed .nav-item.active {
+  position: relative;
+  left: 23px;
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+.liquid-navbar.collapsed .water-drop-bubble {
+  left: -2px;
+  opacity: 1 !important;
+}
+
+.liquid-navbar.collapsed .water-drop-bubble:not(:first-of-type) {
+  
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-30px) scale(0.5);
+}
+
+/* First button */
+
+.nav-item {
+  
+  position: relative;
+  z-index: 2;
+  min-width: 57px;
+  width: 57px;
+  height: 57px;
+
+  flex-shrink: 0;
+
+  border: none;
+  border-radius: 50%;
+
+  background: transparent;
+  color: '';
+
+  font-size: 27px;
+  cursor: pointer;
+
+  transition:
+    opacity 0.4s ease,
+    transform 0.65s cubic-bezier(.22,1,.36,1);
+}
+
+.liquid-navbar.collapsed .nav-item .water-drop-bubble:first-of-type {
+  
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+@keyframes glass-shine {
+  0% {
+    background-position: 150% 0;
+  }
+  100% {
+    background-position: -50% 0;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section {
+  min-height: 100vh;
+  scroll-margin-top: 20px;
+}
+
+/* Liquid lens */
+
+.water-drop-bubble {
+  position: absolute;
+  left: -2px;
+  width: 65px;
+  height: 53px;
+  padding: 25px 30px;
+
+  border-radius: 100px;
+
+ 
+
+  border: 1px solid rgba(255,255,255,.65);
+
+  box-shadow:
+    inset 0 3px 8px rgba(255,255,255,.6),
+    0 4px 15px rgba(255,255,255,.15);
+
+  pointer-events: none;
+
+  transition:
+    transform .65s cubic-bezier(.22,1,.36,1);
+   
+    will-change: transform, width;
+}
+  
+/* Navigation Bar Scroll CSS Code */
+
+
+
+/* icon */
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 57px;
+  height: 61px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  position: relative;
+  z-index: 3;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-icon {
+  
+  font-family: Arial, sans-serif;
+  font-size: 25px;
+  font-style: normal;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.nav-item.active .nav-icon {
+  color: #ffffff;
+  transform: scale(1.15);
+}
+
+/* icon */
+
+/* Desktop Mode Automatic Change*/
+
+/* Desktop mode */
+@media (min-width: 768px) {
+  body {
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+/* Mobile mode */
+@media (max-width: 767px) {
+  body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+}
+
+img, video, iframe {
+  max-width: 100%;
+}
+
+/* Desktop Mode Automatic Change*/
+
+
+/*header And <!-- Website Internal Link Viewer -->  */
+
+/* Header above iframe */
+.glass-header {
+  position: fixed !important;
+  top: 10px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 10005 !important;
+}
+
+/* Iframe behind header */
+#websiteFrame {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 999 !important;
+  border: none;
+}
+
+/* Keep header visible over iframe */
+.glass-header.iframe-header {
+  display: flex !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+html,
+body {
+  width: 100%;
+  min-width: 320px;
+  overflow-x: hidden;
+}
+
+#menu {
+  min-height: 0;
+  display: block;
+  padding: 16px;
+}
+
+#menu table {
+  width: min(100%, 560px);
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+#menu th {
+  padding: 16px;
+}
+
+#menu form input:not([type="radio"]):not([type="file"]),
+#menu form textarea {
+  width: 100%;
+  max-width: 100%;
+  min-height: 42px;
+  margin: 4px 0 12px;
+  padding: 8px;
+}
+
+#menu form textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+@media (max-width: 767px) {
+  body {
+    padding: 88px 12px 100px;
+  }
+
+  .glass-header {
+    top: 12px;
+    width: calc(100% - 60px);
+    height: 50px;
+    padding: 8px 12px;
+    gap: 10px;
+  }
+
+  .logo-circle {
+    width: 38px;
+    height: 38px;
+  }
+
+  .header-title {
+    min-width: 0;
+    white-space: normal;
+    font-size: clamp(14px, 5vw, 22px);
+  }
+
+  .page-content {
+    padding: 20px 8px 36px;
+  }
+
+  .liquid-navbar {
+    width: min(340px, calc(100vw - 24px));
+    bottom: 12px;
+  }
+
+  .nav-item {
+    min-width: 0;
+    width: 20%;
+  }
+
+  .nav-link {
+    width: 100%;
+  }
+
+  #glassBackButton {
+    top: auto;
+    left: 12px;
+    bottom: 90px;
+  }
+
+  #menu {
+    padding: 8px 0;
+  }
+
+  #menu th {
+    padding: 12px;
+  }
+}
+
+@media (min-width: 768px) {
+  .desktop-mode .liquid-navbar.collapsed .nav-item.active {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 57px;
+    width: 57px;
+    transform: translate(-50%, -50%);
+  }
+
+  .desktop-mode .liquid-navbar.collapsed .water-drop-bubble {
+    top: 50%;
+    left: 50%;
+    margin-top: 0;
+    transform: translate(-50%, -50%) !important;
+  }
+
+  .page-content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  #menu {
+    padding: 32px 20px;
+  }
+
+  #menu table {
+    width: min(100%, 720px);
+  }
+}
+
+
+/* header <!-- Website Internal Link Viewer -->  */
+
+/* Background */
+
+.background {
+  min-height: 200vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 30%, #253e73, transparent 35%),
+    radial-gradient(circle at 80% 50%, #673e78, transparent 35%),
+    linear-gradient(140deg, #07101f, #101b38, #090d19);
+}
+
+.background h1 {
+  font-size: clamp(25px, 6vw, 55px);
+  letter-spacing: 5px;
+  z-index: 1;
+}
+
+.background p {
+  margin-top: 15px;
+  color: #b8c8e8;
+  letter-spacing: 3px;
+  z-index: 1;
+}
+
+/* Moving background orbs */
+
+.orb {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  filter: blur(35px);
+  opacity: .65;
+  animation: float 9s ease-in-out infinite alternate;
+}
+
+.orb1 {
+  background: #367bff;
+  top: 20%;
+  left: 5%;
+}
+
+.orb2 {
+  background: #b64bff;
+  top: 45%;
+  right: 5%;
+  animation-delay: -3s;
+}
+
+.orb3 {
+  background: #ff9b55;
+  bottom: 15%;
+  left: 35%;
+  animation-delay: -5s;
+}
+
+@keyframes float {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(80px, -70px) scale(1.3); }
+}
+
+/* Hide SVG filter */
+
+.svg-filters {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* Liquid Glass Navigation */
+
+.liquid-navbar {
+  position: fixed;
+  z-index: 1000;
+
+  left: 50%;
+  bottom: 25px;
+  /*
+  transform: translateX(-50%);
+
+  width: min(92%, 520px);
+  height: 82px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  padding: 8px;
+
+  border-radius: 30px;
+  background: rgba(225, 235, 255, .09);
+
+  border: 1px solid rgba(255, 255, 255, .42);
+*/
+  /* Liquid optical effect */
+  backdrop-filter:
+    url(#liquid-glass)
+    blur(1px)
+    saturate(190%)
+    brightness(1.15);
+
+  -webkit-backdrop-filter:
+    blur(10px)
+    saturate(190%)
+    brightness(1.15);
+
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, .35),
+    inset 0 2px 2px rgba(255, 255, 255, .65),
+    inset 0 -2px 5px rgba(0, 0, 0, .15),
+    0 0 20px rgba(255, 255, 255, .08);
+
+  isolation: isolate;
+  overflow: hidden;
+
+  transition: .4s ease;
+}
+
+.liquid-navbar.is-pressed,
+.liquid-navbar.is-dragging {
+  overflow: visible;
+}
+
+.glass-header {
+  position: fixed;
+  z-index: 1000;
+
+  left: 50%;
+  bottom: 25px;
+  /*
+  transform: translateX(-50%);
+
+  width: min(92%, 520px);
+  height: 82px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  padding: 8px;
+
+  border-radius: 30px;
+  background: rgba(225, 235, 255, .09);
+
+  border: 1px solid rgba(255, 255, 255, .42);
+*/
+  /* Liquid optical effect */
+  backdrop-filter:
+    url(#liquid-glass)
+    blur(1px)
+    saturate(190%)
+    brightness(1.15);
+
+  -webkit-backdrop-filter:
+    blur(10px)
+    saturate(190%)
+    brightness(1.15);
+
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, .35),
+    inset 0 2px 2px rgba(255, 255, 255, .65),
+    inset 0 -2px 5px rgba(0, 0, 0, .15),
+    0 0 20px rgba(255, 255, 255, .08);
+
+  isolation: isolate;
+  overflow: hidden;
+
+  transition: .4s ease;
+}
